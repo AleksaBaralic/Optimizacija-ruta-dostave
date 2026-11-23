@@ -5,9 +5,13 @@
    (OpenRouteService; driving-hgv = teretno vozilo / kamion).
 API kljuc se cita iz promenljive ORS_API_KEY u fajlu .env.
 Rezultat: podaci/portland/matrica.json i podaci/portland/matrica_km.csv.
+
+Ako matrica.json vec postoji, skripta je samo ispisuje (podaci na internetu se menjaju,
+pa bi novo preuzimanje promenilo rezultate). Novo preuzimanje: --novo
 """
 import json
 import os
+import sys
 import time
 
 import requests
@@ -51,7 +55,24 @@ def ispisi(naslov, mat, delilac):
         print(f"{i:>3}  " + "".join(f"{v / delilac:>6.1f}" for v in red))
 
 
+def ispisi_sacuvanu():
+    with open(PODACI / "matrica.json", encoding="utf-8") as f:
+        m = json.load(f)
+    print("Matrica vec postoji (podaci/portland/matrica.json) - ispis sacuvanih podataka.")
+    print("Za novo preuzimanje sa interneta: python skripte/matrica_udaljenosti.py --novo\n")
+    print("1) GEOKODIRANJE ADRESA (OpenStreetMap)")
+    print(f"{'#':>2}  {'Lokacija':<28}{'lat':>10}{'lon':>12}")
+    for i, (naziv, (lat, lon)) in enumerate(zip(m["nazivi"], m["koordinate"])):
+        print(f"{i:>2}  {naziv:<28}{lat:>10.5f}{lon:>12.5f}")
+    print(f"\n2) MATRICA UDALJENOSTI (OpenRouteService, profil {m['profil']})")
+    ispisi("Udaljenosti [km] (0 = skladiste, 1-10 = kupci):", m["distanca_m"], 1000)
+    ispisi("Vreme voznje [min]:", m["vreme_s"], 60)
+
+
 if __name__ == "__main__":
+    if (PODACI / "matrica.json").exists() and "--novo" not in sys.argv:
+        ispisi_sacuvanu()
+        sys.exit(0)
     load_dotenv(KOREN / ".env")
     PODACI.mkdir(parents=True, exist_ok=True)
     kljuc = os.getenv("ORS_API_KEY", "").strip()
