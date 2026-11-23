@@ -14,15 +14,15 @@ PyVRP/
 ├── skripte/
 │   ├── vrp_model.py             ucitavanje podataka i matematicki model
 │   ├── matrica_udaljenosti.py   preuzimanje udaljenosti za kamion (OpenRouteService)
-│   ├── resavanje_ga.py          resavanje genetskim algoritmom i poredjenje
-│   ├── eksperimenti_ga.py       vise pokretanja, konvergencija, uticaj parametara
+│   ├── resavanje_ga.py          resavanje genetskim algoritmom i poredjenje sa OptimoRoute
+│   ├── eksperimenti_ga.py       stabilnost, konvergencija, uticaj parametara
 │   └── mapa_ruta.py             rute GA i OptimoRoute na mapi Portlanda
 ├── podaci/
-│   ├── konfiguracija.json       skladiste, vozila, radno vreme, pauza
-│   ├── OptimoRoute_porudzbine.xlsx  kupci (isti fajl kao u OptimoRoute)
-│   ├── RC208.vrp / .sol         Solomon test primer (100 kupaca) i najbolje poznato resenje
-│   └── matrica.json / .csv      matrica udaljenosti (pravi je skripta)
-├── rezultati/                   resenje, tabele (csv) i grafici
+│   ├── portland/                kupci (isti Excel kao u OptimoRoute), konfiguracija, matrica
+│   └── rc208/                   Solomon test primer (100 kupaca) i najbolje poznato resenje
+├── rezultati/
+│   ├── portland/                resenje, mape ruta, 10 pokretanja
+│   └── rc208/                   konvergencija i uticaj parametara
 ├── requirements.txt
 └── README.md
 ```

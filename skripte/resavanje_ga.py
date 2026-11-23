@@ -2,7 +2,7 @@
 rutama koje je nasao OptimoRoute (Scenario 1), izracunatim nad istom matricom.
 
 Primer pokretanja:  python skripte/resavanje_ga.py --iteracije 3000 --seed 1
-Ispis se cuva i u rezultati/resenje_ga.txt.
+Ispis se cuva u rezultati/portland/resenje_ga.txt, a rute u resenje_ga.json.
 """
 import argparse
 import io
@@ -87,7 +87,7 @@ print(f"OptimoRoute (ista matr.): {uk:.2f} km")
 print(f"Razlika:                  {uk - ga_km:+.2f} km ({(uk - ga_km) / uk * 100:+.1f} %)")
 
 # --- Cuvanje ispisa u fajl ---
-REZULTATI.mkdir(exist_ok=True)
+REZULTATI.mkdir(parents=True, exist_ok=True)
 with open(REZULTATI / "resenje_ga.json", "w", encoding="utf-8") as f:
     json.dump({"distanca_km": round(ga_km, 2),
                "rute": [list(r.visits()) for r in best.routes()],
@@ -95,4 +95,4 @@ with open(REZULTATI / "resenje_ga.json", "w", encoding="utf-8") as f:
               f, indent=1)
 with open(REZULTATI / "resenje_ga.txt", "w", encoding="utf-8") as f:
     f.write(IZLAZ.getvalue())
-print("\nSacuvano: rezultati/resenje_ga.txt i rezultati/resenje_ga.json")
+print("\nSacuvano: rezultati/portland/resenje_ga.txt i resenje_ga.json")

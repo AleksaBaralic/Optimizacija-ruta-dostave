@@ -4,7 +4,7 @@
 2) Matrica udaljenosti i vremena voznje za profil vozila iz konfiguracije
    (OpenRouteService; driving-hgv = teretno vozilo / kamion).
 API kljuc se cita iz promenljive ORS_API_KEY u fajlu .env.
-Rezultat: podaci/matrica.json i podaci/matrica_km.csv.
+Rezultat: podaci/portland/matrica.json i podaci/portland/matrica_km.csv.
 """
 import json
 import os
@@ -53,6 +53,7 @@ def ispisi(naslov, mat, delilac):
 
 if __name__ == "__main__":
     load_dotenv(KOREN / ".env")
+    PODACI.mkdir(parents=True, exist_ok=True)
     kljuc = os.getenv("ORS_API_KEY", "").strip()
     if not kljuc:
         raise SystemExit("API kljuc nije pronadjen. U fajl .env upisi: ORS_API_KEY=tvoj_kljuc")
@@ -86,4 +87,4 @@ if __name__ == "__main__":
 
     ispisi("Udaljenosti [km] (0 = skladiste, 1-10 = kupci):", dist, 1000)
     ispisi("Vreme voznje [min]:", vreme, 60)
-    print("\nSacuvano: podaci/matrica.json i podaci/matrica_km.csv")
+    print("\nSacuvano: podaci/portland/matrica.json i podaci/portland/matrica_km.csv")

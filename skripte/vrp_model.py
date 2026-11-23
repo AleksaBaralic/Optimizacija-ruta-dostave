@@ -1,9 +1,9 @@
 """Ucitavanje ulaznih podataka i formiranje modela CVRPTW za PyVRP 0.12.2.
 
 Ulazni podaci:
-  podaci/konfiguracija.json         skladiste, vozila, radno vreme, pauza
-  podaci/OptimoRoute_porudzbine.xlsx kupci (isti fajl koji je uvezen u OptimoRoute)
-  podaci/matrica.json               udaljenosti i vremena voznje (matrica_udaljenosti.py)
+  podaci/portland/konfiguracija.json          skladiste, vozila, radno vreme, pauza
+  podaci/portland/OptimoRoute_porudzbine.xlsx kupci (isti fajl koji je uvezen u OptimoRoute)
+  podaci/portland/matrica.json                udaljenosti i vremena voznje (matrica_udaljenosti.py)
 
 Vreme se u modelu meri u sekundama od pocetka radnog vremena.
 Lokacija 0 je skladiste, lokacije 1..n su kupci redom iz Excel fajla.
@@ -15,8 +15,10 @@ import openpyxl
 from pyvrp import Model
 
 KOREN = Path(__file__).resolve().parent.parent   # folder PyVRP
-PODACI = KOREN / "podaci"
-REZULTATI = KOREN / "rezultati"
+PODACI = KOREN / "podaci" / "portland"          # primer iz OptimoRoute (10 kupaca)
+PODACI_RC208 = KOREN / "podaci" / "rc208"       # Solomon test primer (100 kupaca)
+REZULTATI = KOREN / "rezultati" / "portland"
+REZULTATI_RC208 = KOREN / "rezultati" / "rc208"
 
 
 def u_sekunde(hh_mm):

@@ -1,8 +1,8 @@
 """Crtanje ruta na mapi Portlanda (OpenStreetMap), po ulicama kojima vozi kamion.
 
 Pravi dve mape istog izgleda:
-  rezultati/mapa_ruta_ga.html           rute genetskog algoritma (rezultati/resenje_ga.json)
-  rezultati/mapa_ruta_optimoroute.html  rute OptimoRoute, Scenario 1 (konfiguracija.json)
+  rezultati/portland/mapa_ruta_ga.html           rute genetskog algoritma (resenje_ga.json)
+  rezultati/portland/mapa_ruta_optimoroute.html  rute OptimoRoute, Scenario 1 (konfiguracija.json)
 Geometrija puta se preuzima sa OpenRouteService (profil iz konfiguracije, driving-hgv).
 Pre ove skripte treba pokrenuti resavanje_ga.py.
 """
@@ -87,9 +87,9 @@ def nacrtaj(naslov, rute, mat, profil, kljuc, fajl):
         f'<hr style="margin:6px 0">{legenda}'
         f'<div style="margin-top:4px">S = складиште, бројеви = редослед обиласка</div></div>'))
     mapa.fit_bounds(granice, padding=(30, 30))
-    REZULTATI.mkdir(exist_ok=True)
+    REZULTATI.mkdir(parents=True, exist_ok=True)
     mapa.save(REZULTATI / fajl)
-    print(f"Sacuvano: rezultati/{fajl}  ({ukupno:.2f} km)")
+    print(f"Sacuvano: rezultati/portland/{fajl}  ({ukupno:.2f} km)")
     return REZULTATI / fajl
 
 
