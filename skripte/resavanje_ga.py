@@ -2,13 +2,12 @@
 rutama koje je nasao OptimoRoute (Scenario 1), izracunatim nad istom matricom.
 
 Primer pokretanja:  python skripte/resavanje_ga.py --iteracije 3000 --seed 1
+Ispis se cuva i u rezultati/resenje_ga.txt.
 """
 import argparse
+import io
+import sys
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 from pyvrp.stop import MaxIterations
 
 from vrp_model import (REZULTATI, duzina_rute, napravi_model, sat, slobodno_za_pauzu,
@@ -18,6 +17,24 @@ arg = argparse.ArgumentParser()
 arg.add_argument("--iteracije", type=int, default=3000)
 arg.add_argument("--seed", type=int, default=1)
 arg = arg.parse_args()
+
+
+class Dupli:
+    """Ispis istovremeno na ekran i u memoriju (za cuvanje u fajl)."""
+    def __init__(self, *tokovi):
+        self.tokovi = tokovi
+
+    def write(self, t):
+        for tok in self.tokovi:
+            tok.write(t)
+
+    def flush(self):
+        for tok in self.tokovi:
+            tok.flush()
+
+
+IZLAZ = io.StringIO()
+sys.stdout = Dupli(sys.__stdout__, IZLAZ)
 
 konf = ucitaj_konfiguraciju()
 kupci = ucitaj_porudzbine(konf)
@@ -68,25 +85,8 @@ print(f"\nGenetski algoritam:       {ga_km:.2f} km")
 print(f"OptimoRoute (ista matr.): {uk:.2f} km")
 print(f"Razlika:                  {uk - ga_km:+.2f} km ({(uk - ga_km) / uk * 100:+.1f} %)")
 
-# --- Grafik konvergencije ---
-iters = range(1, len(rez.stats.feas_stats) + 1)
-najbolje, tekuce = [], float("inf")
-for s in rez.stats.feas_stats:
-    if s.size > 0:
-        tekuce = min(tekuce, s.best_cost)
-    najbolje.append(tekuce / 1000 if tekuce < float("inf") else None)
-prosek = [s.avg_cost / 1000 if s.size > 0 else None for s in rez.stats.feas_stats]
-
-plt.figure(figsize=(8, 4.5))
-plt.plot(iters, prosek, color="#9bb7d4", lw=1, label="Просек допустиве потпопулације")
-plt.plot(iters, najbolje, color="#1f4e79", lw=2, label="Најбоље пронађено решење")
-plt.xscale("log")
-plt.xlabel("Итерација (генерација), логаритамска скала")
-plt.ylabel("Укупна дистанца [km]")
-plt.title("Конвергенција генетског алгоритма")
-plt.grid(alpha=0.3)
-plt.legend()
-plt.tight_layout()
+# --- Cuvanje ispisa u fajl ---
 REZULTATI.mkdir(exist_ok=True)
-plt.savefig(REZULTATI / "konvergencija.png", dpi=200)
-print("\nSacuvan grafik: rezultati/konvergencija.png")
+with open(REZULTATI / "resenje_ga.txt", "w", encoding="utf-8") as f:
+    f.write(IZLAZ.getvalue())
+print("\nIspis sacuvan u: rezultati/resenje_ga.txt")

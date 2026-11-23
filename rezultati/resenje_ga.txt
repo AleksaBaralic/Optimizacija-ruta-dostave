@@ -1,0 +1,36 @@
+========================================================================
+GENETSKI ALGORITAM - 3000 iteracija, seed 1, vreme 1.72 s
+========================================================================
+Profil vozila:      driving-hgv
+Resenje izvodljivo: DA
+Ukupna distanca:    24.72 km
+
+Vozilo 1: 4 kupaca, 5.43 km, polazak 08:00, povratak 10:26, trajanje 2 h 26 min, cekanje 91 min
+     pauza 12:00-13:00: slobodno 60 min -> moguca
+     08:03   2  Powell's City of Books
+     08:15   6  Providence Park
+     10:00   4  Central Library
+     10:11   5  Portland Art Museum
+Vozilo 2: 4 kupaca, 15.75 km, polazak 08:00, povratak 13:30, trajanje 5 h 30 min, cekanje 251 min
+     pauza 12:00-13:00: slobodno 60 min -> moguca
+     09:00   8  Lloyd Center
+     09:20   9  Belmont Library
+     13:00  10  OMSI
+     13:16   3  Pioneer Courthouse Square
+Vozilo 3: 2 kupaca, 3.55 km, polazak 08:00, povratak 08:30, trajanje 0 h 30 min, cekanje 0 min
+     pauza 12:00-13:00: slobodno 60 min -> moguca
+     08:02   1  Lan Su Chinese Garden
+     08:15   7  Moda Center
+
+========================================================================
+POREDJENJE: redosled iz OptimoRoute-a meren istom matricom (driving-hgv)
+========================================================================
+Ruta                Redosled kupaca    Matrica [km]   OptimoRoute [km]
+Vozilo 1 (plavo)    [7, 8, 9, 10]             17.05               20.0
+Vozilo 2 (crveno)   [2, 1]                     2.95                3.1
+Vozilo 3 (zeleno)   [3, 6, 5, 4]               6.23                6.0
+Ukupno                                        26.23               29.1
+
+Genetski algoritam:       24.72 km
+OptimoRoute (ista matr.): 26.23 km
+Razlika:                  +1.51 km (+5.7 %)
