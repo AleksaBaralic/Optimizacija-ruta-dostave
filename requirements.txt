@@ -1,0 +1,5 @@
+pyvrp==0.12.2
+requests
+matplotlib
+openpyxl
+python-dotenv

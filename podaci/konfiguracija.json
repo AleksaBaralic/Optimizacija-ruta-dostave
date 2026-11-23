@@ -1,0 +1,26 @@
+{
+  "skladiste": {
+    "naziv": "Skladiste (Union Station)",
+    "adresa": "800 NW 6th Ave, Portland, OR 97209"
+  },
+  "porudzbine": "OptimoRoute_porudzbine.xlsx",
+  "vozila": {
+    "broj": 3,
+    "kapacitet_kg": 120,
+    "profil": "driving-hgv"
+  },
+  "radno_vreme": {
+    "od": "08:00",
+    "do": "16:00"
+  },
+  "pauza": {
+    "trajanje_min": 30,
+    "od": "12:00",
+    "do": "13:00"
+  },
+  "optimoroute_scenario1": {
+    "Vozilo 1 (plavo)": {"redosled": [7, 8, 9, 10], "km": 20.0},
+    "Vozilo 2 (crveno)": {"redosled": [2, 1], "km": 3.1},
+    "Vozilo 3 (zeleno)": {"redosled": [3, 6, 5, 4], "km": 6.0}
+  }
+}
