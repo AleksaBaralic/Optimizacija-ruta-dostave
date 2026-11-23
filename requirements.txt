@@ -3,3 +3,4 @@ requests
 matplotlib
 openpyxl
 python-dotenv
+folium

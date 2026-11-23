@@ -6,6 +6,7 @@ Ispis se cuva i u rezultati/resenje_ga.txt.
 """
 import argparse
 import io
+import json
 import sys
 
 from pyvrp.stop import MaxIterations
@@ -87,6 +88,11 @@ print(f"Razlika:                  {uk - ga_km:+.2f} km ({(uk - ga_km) / uk * 100
 
 # --- Cuvanje ispisa u fajl ---
 REZULTATI.mkdir(exist_ok=True)
+with open(REZULTATI / "resenje_ga.json", "w", encoding="utf-8") as f:
+    json.dump({"distanca_km": round(ga_km, 2),
+               "rute": [list(r.visits()) for r in best.routes()],
+               "km_po_ruti": [round(r.distance() / 1000, 2) for r in best.routes()]},
+              f, indent=1)
 with open(REZULTATI / "resenje_ga.txt", "w", encoding="utf-8") as f:
     f.write(IZLAZ.getvalue())
-print("\nIspis sacuvan u: rezultati/resenje_ga.txt")
+print("\nSacuvano: rezultati/resenje_ga.txt i rezultati/resenje_ga.json")
